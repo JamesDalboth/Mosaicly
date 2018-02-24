@@ -34,15 +34,10 @@ public class Worker extends Thread {
   }
 
   public void process(Task nextTask) {
-    switch(nextTask.command){
-      case COLSEARCH:
-        //Harry's request of colour goes here.
-        break;
-      case REQUEST:
-
-        break;
+    //Needs to initiate a google search for pictures using searchterm seedWord and by the colour stored in  col
+    //
     }
-  }
+
   private void SLEEP(){
     try {
       Thread.sleep(toSleep);
