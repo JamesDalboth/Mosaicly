@@ -19,6 +19,7 @@ import weka.core.Instances;
 
 public class ColourClassifier {
 
+  private int instanceCount;
   private String[] colours = {"YELLOW",
       "GREEN",
       "MUSTARD",
@@ -183,7 +184,8 @@ public class ColourClassifier {
     instance.setValue(2, color.getGreen());
     testSet.add(instance);
     try {
-      return s[(int) classifier.classifyInstance(testSet.instance(0))];
+      return s[(int) classifier
+          .classifyInstance(testSet.instance(instanceCount++))];
     } catch (Exception e) {
       e.printStackTrace();
     }
