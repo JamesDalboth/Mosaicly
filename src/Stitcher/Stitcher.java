@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import javax.imageio.ImageIO;
+
+import Classification.Core;
 import picture.PicLoc;
 import picture.Picture;
 import picture.Utils;
@@ -53,7 +55,7 @@ public class Stitcher {
 //    return images;
 //  }
 
-  public void run(String dest) {
+  public BufferedImage run() {
 
 //    BufferedImage[] grid = readImages(src);
     BufferedImage target = new BufferedImage(ActualSize.width()*scale,
@@ -64,16 +66,7 @@ public class Stitcher {
         g.drawImage(grid[i][j], chunkLength*scale * j, chunkLength*scale * i, null);
       }
     }
-
-    Path destPath = Paths.get(dest, "target.jpg");
-    File output = new File(destPath.toString());
-
-    try {
-      ImageIO.write(target, "jpg", output);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
+    return target;
   }
 
 }
