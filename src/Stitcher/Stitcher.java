@@ -24,10 +24,9 @@ public class Stitcher {
   private Size ActualSize; //Corresponds to the resolution of the end picture.
 
   public Stitcher(Size size, int chunkLength) {
-    this.grid = new BufferedImage[size.height()][size.width()];
+    this.grid = new BufferedImage[size.height()/chunkLength][size.width()/chunkLength];
     this.chunkLength = chunkLength;
-    this.ActualSize = new Size(chunkLength * size.height(),
-        chunkLength * size.width());
+    this.ActualSize = size;
   }
 
   public static void main(String[] args) {
@@ -52,7 +51,7 @@ public class Stitcher {
 
   public void add(PicLoc picloc) {
     Location loc = picloc.getLocation();
-    grid[loc.getX()][loc.getY()] = picloc.getPicture().getImage();
+    grid[loc.getY()/chunkLength][loc.getX()/chunkLength] = picloc.getPicture().getImage();
   }
 
 //

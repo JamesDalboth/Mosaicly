@@ -1,6 +1,8 @@
 package search;
 
+import picture.Picture;
+
 public interface ImageSearch {
 
-  String getImageUrl();
+  Picture getImageUrl();
 }

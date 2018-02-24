@@ -20,7 +20,7 @@ public class Core {
     private final int noScavengers;
     private List<Scavenger> scavengers;
     private List<Worker> workers;
-    private final int tileSize = 25;
+    private final int tileSize = 10;
     private final int noWorkers;
     private String seedWord;
     private static Map<ColourVal.SearchColour, Picture> imageMap;
@@ -34,7 +34,9 @@ public class Core {
         workers = new ArrayList<>();
         Backlog backlog = new coarseBacklog();
         this.noWorkers = noWorkers;
-        Stitcher stitcher = new Stitcher(new Size(initImage.getWidth(), initImage.getHeight()), tileSize);
+
+        scan();
+        Stitcher stitcher = new Stitcher(new Size(initImage.getHeight(), initImage.getWidth()), tileSize);
         for (int i = 0; i < noScavengers; i++) {
             Scavenger scavenger = new Scavenger(i, initImage, backlog, tileSize, noScavengers);
             scavengers.add(scavenger);
@@ -62,7 +64,7 @@ public class Core {
             worker.interrupt();
         }
 
-        stitcher.run("test.png");
+        stitcher.run("output");
 
 
     }
@@ -72,8 +74,8 @@ public class Core {
             ImageSearch imageSearch = new BingImageSearch("7a4819d6134a4c3c860bf5bfd15ec1ef", searchColour.toString(),
                     seedWord);
 
-            String imageUrl = imageSearch.getImageUrl();
-            Picture picture = Utils.loadPicture(imageUrl);
+            Picture picture = imageSearch.getImageUrl();
+
             Image scaledImage = picture.getImage().getScaledInstance(
                     tileSize,
                     tileSize, Image.SCALE_DEFAULT);
