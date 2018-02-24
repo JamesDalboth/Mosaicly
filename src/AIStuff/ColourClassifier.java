@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import picture.Color;
+import utils.ColourVal.SearchColour;
 import weka.classifiers.Classifier;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
@@ -150,7 +151,24 @@ public class ColourClassifier {
     return isTrainingSet;
   }
 
-  public String classify(Color color) {
+  public SearchColour classify(Color color) {
+    SearchColour[] s = {
+        SearchColour.YELLOW,
+        SearchColour.GREEN,
+        SearchColour.YELLOW,
+        SearchColour.ORANGE,
+        SearchColour.GREEN,
+        SearchColour.BROWN,
+        SearchColour.RED,
+        SearchColour.TEAL,
+        SearchColour.TEAL,
+        SearchColour.BLUE,
+        SearchColour.BLACK,
+        SearchColour.BROWN,
+        SearchColour.PURPLE,
+        SearchColour.PINK,
+        SearchColour.PURPLE
+    };
     // Create an empty test set
     Instances testSet = getTestSet();
     // Set class index
@@ -161,7 +179,7 @@ public class ColourClassifier {
     instance.setValue(2, color.getGreen());
     testSet.add(instance);
     try {
-      return colours[(int) classifier.classifyInstance(testSet.instance(0))];
+      return s[(int) classifier.classifyInstance(testSet.instance(0))];
     } catch (Exception e) {
       e.printStackTrace();
     }
