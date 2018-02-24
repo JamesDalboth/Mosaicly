@@ -43,6 +43,7 @@ public class ColourClassifier {
       SearchColour.YELLOW,
       SearchColour.GREEN,
       SearchColour.YELLOW,
+      SearchColour.YELLOW,
       SearchColour.ORANGE,
       SearchColour.GREEN,
       SearchColour.BROWN,
@@ -186,9 +187,7 @@ public class ColourClassifier {
     instance.setValue(2, color.getGreen());
     testSet.add(instance);
     instanceCount += 1;
-    if (instanceCount % 100 == 0) {
-      System.out.println(instanceCount);
-    }
+    System.out.println(instanceCount);
     try {
       return s[(int) classifier
           .classifyInstance(testSet.instance(instanceCount))];
