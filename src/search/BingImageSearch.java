@@ -3,6 +3,11 @@ package search;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonArray;
+import picture.PicLoc;
+import picture.Picture;
+import picture.Utils;
+
+import java.awt.*;
 import java.net.*;
 import java.util.*;
 import java.io.*;
@@ -13,7 +18,7 @@ public class BingImageSearch implements ImageSearch {
 
   private final static String host = "https://api.cognitive.microsoft.com";
   private final static String path = "/bing/v7.0/images/search";
-  private final static int imageIndex = 0;
+  private int imageIndex = 0;
 
   private final String subscriptionKey;
   private final String colour;
@@ -27,7 +32,7 @@ public class BingImageSearch implements ImageSearch {
   }
 
   @Override
-  public String getImageUrl() {
+  public Picture getImageUrl() {
     SearchResults result = null;
     try {
       result = searchImages(searchTerm);
@@ -37,11 +42,19 @@ public class BingImageSearch implements ImageSearch {
     JsonParser parser = new JsonParser();
     JsonObject json = parser.parse(result.jsonResponse).getAsJsonObject();
     JsonArray images = json.getAsJsonArray("value");
-    String imageUrl = images.get(imageIndex).getAsJsonObject()
-        .getAsJsonPrimitive
-        ("contentUrl").getAsString();
+    Picture picture;
+    do {
+      String imageUrl = images.get(imageIndex).getAsJsonObject()
+              .getAsJsonPrimitive
+                      ("contentUrl").getAsString();
+      picture = Utils.loadPicture(imageUrl);
+      imageIndex++;
+    } while (picture == null);
 
-    return imageUrl;
+    imageIndex = 0;
+
+
+    return picture;
   }
 
   public SearchResults searchImages (String searchQuery) throws Exception {

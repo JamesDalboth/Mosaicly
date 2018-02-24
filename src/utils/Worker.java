@@ -1,5 +1,6 @@
 package utils;
 
+import Classification.Core;
 import Stitcher.Stitcher;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -14,14 +15,12 @@ public class Worker extends Thread {
 
   private final coarseBacklog backlog;
   private final Stitcher stitcher;
-  private final String subKey;
   private boolean interrupted = false;
   private int toSleep = 1;
 
-  public Worker(coarseBacklog backlog, Stitcher stitcher, String subKey) {
+  public Worker(coarseBacklog backlog, Stitcher stitcher) {
     this.backlog = backlog;
     this.stitcher = stitcher;
-    this.subKey = subKey;
   }
 
   @Override
@@ -46,20 +45,9 @@ public class Worker extends Thread {
   }
 
   public void process(Task nextTask) {
-    String searchColour = nextTask.colour.getSearchByColour();
-    String seedWord = nextTask.seedWord;
-
-    ImageSearch imageSearch = new BingImageSearch(subKey, searchColour,
-        seedWord);
-
-    String imageUrl = imageSearch.getImageUrl();
-    Picture picture = Utils.loadPicture(imageUrl);
-    Image scaledImage = picture.getImage().getScaledInstance(
-        nextTask.getSize().width(),
-        nextTask.getSize().height(), Image.SCALE_DEFAULT);
-
-    stitcher.add(new PicLoc(new Picture((BufferedImage) scaledImage),
-        nextTask.location));
+    Picture picture = Core.colorToPic(nextTask.colour.searchByColour);
+    PicLoc pl = new PicLoc(picture,nextTask.location);
+    stitcher.add(pl);
   }
 
   private void SLEEP(){

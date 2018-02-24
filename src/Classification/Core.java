@@ -1,13 +1,17 @@
 package Classification;
 
+import picture.PicLoc;
 import picture.Picture;
-import utils.Backlog;
-import utils.Worker;
-import utils.coarseBacklog;
+import picture.Utils;
+import search.BingImageSearch;
+import search.ImageSearch;
+import utils.*;
+import Stitcher.Stitcher;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 
 public class Core {
@@ -16,11 +20,13 @@ public class Core {
     private final int noScavengers;
     private List<Scavenger> scavengers;
     private List<Worker> workers;
-    private final int tileSize = 25;
+    private final int tileSize = 10;
     private final int noWorkers;
     private String seedWord;
+    private static Map<ColourVal.SearchColour, Picture> imageMap;
 
     public Core(Picture initImage, int noScavengers, String seedWord, int noWorkers) {
+        imageMap = new HashMap<>();
         this.seedWord = seedWord;
         this.initImage = initImage;
         this.noScavengers = noScavengers;
@@ -28,8 +34,11 @@ public class Core {
         workers = new ArrayList<>();
         Backlog backlog = new coarseBacklog();
         this.noWorkers = noWorkers;
+
+        scan();
+        Stitcher stitcher = new Stitcher(new Size(initImage.getHeight(), initImage.getWidth()), tileSize);
         for (int i = 0; i < noScavengers; i++) {
-            Scavenger scavenger = new Scavenger(i,initImage,backlog,tileSize,noScavengers,seedWord);
+            Scavenger scavenger = new Scavenger(i, initImage, backlog, tileSize, noScavengers);
             scavengers.add(scavenger);
             scavenger.start();
         }
@@ -43,11 +52,11 @@ public class Core {
         }
 
         for (int i = 0; i < noWorkers; i++) {
-            Worker worker = new Worker((coarseBacklog) backlog);
+            Worker worker = new Worker((coarseBacklog) backlog, stitcher);
             workers.add(worker);
             worker.start();
         }
-        System.out.println(backlog.numberOfTasksInTheBacklog());
+
         while (backlog.numberOfTasksInTheBacklog() != 0) {
         }
 
@@ -55,10 +64,27 @@ public class Core {
             worker.interrupt();
         }
 
+        stitcher.run("output");
+
 
     }
 
+    public void scan() {
+        for (ColourVal.SearchColour searchColour : ColourVal.SearchColour.values()) {
+            ImageSearch imageSearch = new BingImageSearch("7a4819d6134a4c3c860bf5bfd15ec1ef", searchColour.toString(),
+                    seedWord);
 
+            Picture picture = imageSearch.getImageUrl();
 
+            Image scaledImage = picture.getImage().getScaledInstance(
+                    tileSize,
+                    tileSize, Image.SCALE_DEFAULT);
+            Picture scaled = new Picture(Utils.toBufferedImage(scaledImage));
+            imageMap.put(searchColour,scaled);
+        }
+    }
 
+    public static Picture colorToPic(ColourVal.SearchColour sc) {
+        return imageMap.get(sc);
+    }
 }

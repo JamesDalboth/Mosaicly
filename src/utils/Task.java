@@ -10,14 +10,12 @@ public class Task {
   final Location location;
   final Size size;
   final ColourVal colour;
-  final String seedWord;
   final int id;
 
-  public Task(Location location, Size size, String seedWord, ColourVal colour) {
+  public Task(Location location, Size size,ColourVal colour) {
 
     this.location = location;
     this.size = size;
-    this.seedWord = seedWord;
     this.colour = colour;
     this.id = nextTaskId.getAndIncrement();
   }
@@ -29,7 +27,6 @@ public class Task {
     return location;
   }
   public Size getSize(){return size;}
-  public String getSeedWord(){return seedWord;}
   public ColourVal getColour(){return colour;}
 
 
