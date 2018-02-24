@@ -5,7 +5,13 @@ public class Size {
   private final int height;
   private final int width;
 
+  public Size() {
+    this(0, 0);
+  }
+
   public Size(int height, int width) {
+    assert height >= 1 : "Invalid height.";
+    assert width >= 1 : "Invalid width.";
     this.height = height;
     this.width = width;
   }

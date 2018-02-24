@@ -30,7 +30,7 @@ public class Picture {
    * 
    * @return the <tt>BufferedImage</tt> associated with this <tt>Picture</tt>.
    */
-  protected BufferedImage getImage() {
+  public BufferedImage getImage() {
     return image;
   }
 

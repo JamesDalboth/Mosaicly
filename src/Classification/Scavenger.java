@@ -30,9 +30,7 @@ public class Scavenger extends Thread{
             Picture picture = Utils.createPicture(tileSize, tileSize);
             int yOffset = ((count*tileSize) / trueHeight)*tileSize;
             int xOffset = (count*tileSize) % trueWidth;
-            Location location = new Location();
-            location.setX(xOffset);
-            location.setY(yOffset);
+            Location location = new Location(xOffset, yOffset);
             for (int i = 0;  i < tileSize; i++) {
                 for (int j = 0; j < tileSize; j++) {
                     picture.setPixel(i,j,this.picture.getPixel(i + xOffset,j + yOffset));
