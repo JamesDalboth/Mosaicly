@@ -36,10 +36,17 @@ public class ColourClassifier {
       "PINK",
       "PURPLE"};
   private Classifier classifier;
+  private Instances testSet;
 
   public ColourClassifier() {
     try {
       this.classifier = loadModel(new File("weka_models"), "/RandomForest");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    try {
+      this.testSet = getTestSet();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -144,7 +151,7 @@ public class ColourClassifier {
     wekaAttributes.add(COLOUR);
 
     // Create an empty training set
-    Instances isTrainingSet = new Instances("Rel", wekaAttributes, 1);
+    Instances isTrainingSet = new Instances("Rel", wekaAttributes, 200000);
 
     // Set class index
     isTrainingSet.setClassIndex(3);
@@ -169,9 +176,6 @@ public class ColourClassifier {
         SearchColour.PINK,
         SearchColour.PURPLE
     };
-    // Create an empty test set
-    Instances testSet = getTestSet();
-    // Set class index
 
     Instance instance = new DenseInstance(3);
     instance.setValue(0, color.getRed());
