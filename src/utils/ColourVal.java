@@ -48,8 +48,14 @@ public class ColourVal {
 
 
     private double findAbs(SearchColour colour){
-        return Math.sqrt((enumConversion.get(colour).getRed() - avgCol.getRed()) ^ 2 + (enumConversion.get(colour).getGreen() - avgCol.getGreen()) ^ 2 + (enumConversion.get(colour).getRed() - avgCol.getBlue()) ^ 2);
-    }
+        double willBeReturned = 0;
+        willBeReturned += (enumConversion.get(colour).getRed() - avgCol.getRed()) ^ 2;
+        willBeReturned += (enumConversion.get(colour).getGreen() - avgCol.getGreen()) ^ 2;
+        willBeReturned += (enumConversion.get(colour).getRed() - avgCol.getBlue()) ^ 2;
+        willBeReturned = Math.sqrt(willBeReturned);
+
+        return willBeReturned;
+}
 
 
     public String getSearchByColour() {
