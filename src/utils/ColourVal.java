@@ -13,7 +13,7 @@ public class ColourVal {
 
     public ColourVal(Color avgCol) {
         //this.avgCol = avgCol;
-        this.avgCol = new Color(0,0,255);
+        this.avgCol = new Color(0,255,0);
         this.searchByColour = searchByRepresentation();
     }
 
