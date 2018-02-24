@@ -51,7 +51,7 @@ public class ColourVal {
         double willBeReturned = 0;
         willBeReturned += (enumConversion.get(colour).getRed() - avgCol.getRed()) ^ 2;
         willBeReturned += (enumConversion.get(colour).getGreen() - avgCol.getGreen()) ^ 2;
-        willBeReturned += (enumConversion.get(colour).getRed() - avgCol.getBlue()) ^ 2;
+        willBeReturned += (enumConversion.get(colour).getBlue() - avgCol.getBlue()) ^ 2;
         willBeReturned = Math.sqrt(willBeReturned);
 
         return willBeReturned;
