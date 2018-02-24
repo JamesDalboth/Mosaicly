@@ -26,8 +26,8 @@ public class Scavenger extends Thread{
         int count = id;
         while (count < (picture.getWidth() * picture.getHeight()) / (tileSize * tileSize)) {
             Picture picture = Utils.createPicture(tileSize, tileSize);
-            int xOffset = count / picture.getWidth();
-            int yOffset = count % picture.getWidth();
+            int xOffset = count*tileSize / picture.getWidth();
+            int yOffset = count*tileSize % picture.getWidth();
             Location location = new Location();
             location.setX(xOffset);
             location.setY(yOffset);
@@ -36,8 +36,9 @@ public class Scavenger extends Thread{
                     picture.setPixel(i,j,this.picture.getPixel(i + xOffset,j + yOffset));
                 }
             }
-            ColourVal colourVal = new ColourVal(averageColor(picture));
-            System.out.println();
+            Color color = averageColor(picture);
+            ColourVal colourVal = new ColourVal(color);
+            System.out.println(location.toString() + " "+ colourVal.getSearchByColour());
             backlog.add(new Task(location,new Size(tileSize,tileSize),seedWord,colourVal));
             count += scavengerNo;
         }
@@ -51,14 +52,14 @@ public class Scavenger extends Thread{
         for (int i = 0; i < picture.getWidth(); i++) {
             for (int j = 0; j < picture.getHeight(); j++) {
                 rsum += picture.getPixel(i,j).getRed();
-                gsum += picture.getPixel(i,j).getRed();
-                bsum += picture.getPixel(i,j).getRed();
+                gsum += picture.getPixel(i,j).getBlue();
+                bsum += picture.getPixel(i,j).getGreen();
             }
         }
 
-        rsum = Math.round(rsum / picture.getWidth() * picture.getHeight());
-        gsum = Math.round(gsum / picture.getWidth() * picture.getHeight());
-        bsum = Math.round(bsum / picture.getWidth() * picture.getHeight());
+        rsum = Math.round(rsum / (picture.getWidth() * picture.getHeight()));
+        gsum = Math.round(gsum / (picture.getWidth() * picture.getHeight()));
+        bsum = Math.round(bsum / (picture.getWidth() * picture.getHeight()));
         return new Color(rsum,gsum,bsum);
     }
 }
