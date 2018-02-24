@@ -6,15 +6,15 @@ public class Task {
 
   private static AtomicInteger nextTaskId = new AtomicInteger(0);
 
-  final Command command;
+
   final Location location;
   final Size size;
   final ColourVal colour;
   final String seedWord;
   final int id;
 
-  public Task(Command command,Location location, Size size, String seedWord) {
-    this.command = command;
+  public Task(Location location, Size size, String seedWord) {
+
     this.location = location;
     this.size = size;
     this.seedWord = seedWord;
@@ -22,13 +22,14 @@ public class Task {
   }
 
 
-  public Command getCommand() {
-    return command;
-  }
+
 
   public Location getLocation() {
     return location;
   }
+  public Size getSize(){return size;}
+  public String getSeedWord(){return seedWord;}
+  public ColourVal getColour(){return colour;}
 
 
 
@@ -54,9 +55,5 @@ public class Task {
 
   public int hashCode() {
     return id;
-  }
-
-  public enum Command {
-    COLSEARCH, REQUEST
   }
 }

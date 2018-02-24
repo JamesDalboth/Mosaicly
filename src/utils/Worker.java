@@ -39,7 +39,7 @@ public class Worker extends Thread {
         //Harry's request of colour goes here.
         break;
       case REQUEST:
-        //James' request code goes here
+
         break;
     }
   }
