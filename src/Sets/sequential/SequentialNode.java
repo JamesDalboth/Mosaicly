@@ -1,23 +1,23 @@
 package Sets.sequential;
 
 
-import Sets.baseNode;
+import Sets.Node;
 
-public class SequentialNode<E> implements baseNode<E> {
+public class SequentialNode<E> implements Node<E> {
   
   private E item;
   private int key;
-  private baseNode<E> next;
+  private Node<E> next;
 
   public SequentialNode(E item) {
     this(item, null);
   }
 
-  public SequentialNode(E item, baseNode<E> next) {
+  public SequentialNode(E item, Node<E> next) {
     this(item, item.hashCode(), next);
   }
 
-  protected SequentialNode(E item, int key, baseNode<E> next) {
+  protected SequentialNode(E item, int key, Node<E> next) {
     this.item = item;
     this.key = key;
     this.next = next;
@@ -34,7 +34,7 @@ public class SequentialNode<E> implements baseNode<E> {
   }
 
   @Override
-  public baseNode<E> next() {
+  public Node<E> next() {
     return next;
   }
 
@@ -49,7 +49,7 @@ public class SequentialNode<E> implements baseNode<E> {
   }
 
   @Override
-  public void setNext(baseNode<E> next) {
+  public void setNext(Node<E> next) {
     this.next = next;
   }
 }
