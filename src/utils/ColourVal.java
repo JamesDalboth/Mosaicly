@@ -32,7 +32,7 @@ public class ColourVal {
         enumConversion.put(SearchColour.PURPLE, new Color(100, avgCol.getGreen(), 200));
         enumConversion.put(SearchColour.PINK, new Color(255, avgCol.getGreen(), 255));
         enumConversion.put(SearchColour.WHITE,new Color(255,255,255));
-        enumConversion.put(SearchColour.GREY, new Color(80, 80, 80));
+        enumConversion.put(SearchColour.GREY, new Color(avgCol.getGreen(), avgCol.getBlue(), avgCol.getRed()));
         enumConversion.put(SearchColour.BROWN, new Color(204, 204, 0));
         enumConversion.put(SearchColour.BLACK,new Color(0,0,0));
         double currentMin = 1000;
@@ -63,6 +63,6 @@ public class ColourVal {
     }
 
     public enum SearchColour {
-        RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, PURPLE, PINK, WHITE, GREY, BLACK, BROWN;
+        BROWN, RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, PURPLE, PINK, WHITE, GREY, BLACK;
     }
 }
