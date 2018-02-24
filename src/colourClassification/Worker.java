@@ -1,15 +1,15 @@
-package socialnetwork.domain;
+package colourClassification;
 
 import java.util.Optional;
 import socialnetwork.domain.Task.Command;
 
 public class Worker extends Thread {
 
-  private final Backlog backlog;
+  private final coarseBacklog backlog;
   private boolean interrupted = false;
   private int toSleep = 1;
 
-  public Worker(Backlog backlog) {
+  public Worker(coarseBacklog backlog) {
     this.backlog = backlog;
   }
 
