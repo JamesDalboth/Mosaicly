@@ -1,4 +1,5 @@
 import Classification.Core;
+import Classification.GifDecoder;
 import picture.Picture;
 
 import javax.imageio.ImageIO;
@@ -27,13 +28,13 @@ public class Main {
           result = new Picture[1];
           result[0] = picture.Utils.loadPicture(location);
       }
-      ImageReader reader = ImageIO.getImageReadersBySuffix("GIF").next();
-      ImageInputStream in = ImageIO.createImageInputStream(new File(location));
-      reader.setInput(in);
-      result = new Picture[reader.getNumImages(true)];
-      for (int i = 0, count = reader.getNumImages(true); i < count; i++)
+      GifDecoder gd = new GifDecoder();
+      gd.read(location);
+
+      result = new Picture[gd.getFrameCount()];
+      for (int i = 0, count = gd.getFrameCount(); i < count; i++)
       {
-          BufferedImage image = reader.read(i);
+          BufferedImage image = gd.getFrame(i);
           result[i] = new Picture(image);
       }
       return result;
