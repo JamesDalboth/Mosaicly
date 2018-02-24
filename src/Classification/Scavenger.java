@@ -26,7 +26,7 @@ public class Scavenger extends Thread{
         int count = id;
         int trueWidth = (int) Math.floor(picture.getWidth() / tileSize)*tileSize;
         int trueHeight = (int) Math.floor(picture.getHeight() / tileSize)*tileSize;
-        while (count < (trueWidth * trueHeight)/(tileSize*tileSize)) {
+        while (((count*tileSize) / trueHeight)*tileSize < trueHeight) {
             Picture picture = Utils.createPicture(tileSize, tileSize);
             int yOffset = ((count*tileSize) / trueHeight)*tileSize;
             int xOffset = (count*tileSize) % trueWidth;
