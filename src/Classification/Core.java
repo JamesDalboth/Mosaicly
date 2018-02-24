@@ -23,6 +23,7 @@ public class Core {
     private final int tileSize = 10;
     private final int noWorkers;
     private String seedWord;
+    private final int scale = 2;
     private static Map<ColourVal.SearchColour, Picture> imageMap;
 
     public Core(Picture initImage, int noScavengers, String seedWord, int noWorkers) {
@@ -36,7 +37,7 @@ public class Core {
         this.noWorkers = noWorkers;
 
         scan();
-        Stitcher stitcher = new Stitcher(new Size(initImage.getHeight(), initImage.getWidth()), tileSize);
+        Stitcher stitcher = new Stitcher(new Size(initImage.getHeight(), initImage.getWidth()), tileSize,scale);
         for (int i = 0; i < noScavengers; i++) {
             Scavenger scavenger = new Scavenger(i, initImage, backlog, tileSize, noScavengers);
             scavengers.add(scavenger);
@@ -77,8 +78,8 @@ public class Core {
             Picture picture = imageSearch.getImageUrl();
 
             Image scaledImage = picture.getImage().getScaledInstance(
-                    tileSize,
-                    tileSize, Image.SCALE_DEFAULT);
+                    tileSize*scale,
+                    tileSize*scale, Image.SCALE_DEFAULT);
             Picture scaled = new Picture(Utils.toBufferedImage(scaledImage));
             imageMap.put(searchColour,scaled);
         }
