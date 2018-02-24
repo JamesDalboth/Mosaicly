@@ -1,4 +1,4 @@
-package socialnetwork.domain;
+package colourClassification;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -10,22 +10,24 @@ public class Task {
   final Location location;
   final Size size;
   final ColourVal colour;
-  final String seedvalue;
+  final String seedWord;
   final int id;
 
-  public Task(Command command,) {
+  public Task(Command command,Location location, Size size, String seedWord) {
     this.command = command;
-    this.picture= picture;
-    this.board = board;
+    this.location = location;
+    this.size = size;
+    this.seedWord = seedWord;
     this.id = nextTaskId.getAndIncrement();
   }
+
 
   public Command getCommand() {
     return command;
   }
 
-  public Message getMessage() {
-    return message;
+  public Location getLocation() {
+    return location;
   }
 
 
@@ -47,12 +49,12 @@ public class Task {
     return id == task.id;
   }
 
-  @Override
+
   public int hashCode() {
     return id;
   }
 
   public enum Command {
-    POST, DELETE
+    COLSEARCH, REQUEST
   }
 }
