@@ -9,7 +9,7 @@ public class ColourVal {
     final Color avgCol;
     final SearchColour searchByColour;
 
-    public Map<SearchColour, Color> enumConversion = new HashMap<>();
+    public Map<SearchColour, Color> enumConversion;
 
     public ColourVal(Color avgCol) {
         //this.avgCol = avgCol;
@@ -22,7 +22,7 @@ public class ColourVal {
 
 
         //Initialisation ofa hashMap containing the RGB value for each SearchColour
-        Map<SearchColour, Color> enumConversion = new HashMap<>();
+        enumConversion = new HashMap<>();
         enumConversion.put(SearchColour.RED,new Color(255,0,0));
         enumConversion.put(SearchColour.ORANGE, new Color(255, 153, 51));
         enumConversion.put(SearchColour.YELLOW, new Color(255, 255, 100));
