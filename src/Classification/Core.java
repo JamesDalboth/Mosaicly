@@ -20,13 +20,14 @@ public class Core {
     private final int noWorkers;
     private String seedWord;
 
-    public Core(Picture initImage, int noScavengers, String seedWord, i) {
+    public Core(Picture initImage, int noScavengers, String seedWord, int noWorkers) {
         this.seedWord = seedWord;
         this.initImage = initImage;
         this.noScavengers = noScavengers;
         scavengers = new ArrayList<>();
         workers = new ArrayList<>();
         Backlog backlog = new coarseBacklog();
+        this.noWorkers = noWorkers;
         for (int i = 0; i < noScavengers; i++) {
             Scavenger scavenger = new Scavenger(i,initImage,backlog,tileSize,noScavengers,seedWord);
             scavengers.add(scavenger);
@@ -42,8 +43,18 @@ public class Core {
         }
 
         for (int i = 0; i < noWorkers; i++) {
-
+            Worker worker = new Worker((coarseBacklog) backlog);
+            workers.add(worker);
+            worker.start();
         }
+
+        while (backlog.numberOfTasksInTheBacklog() != 0) {
+        }
+
+        for (Worker worker : workers) {
+            worker.interrupt();
+        }
+
 
     }
 
