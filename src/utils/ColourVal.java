@@ -12,7 +12,8 @@ public class ColourVal {
     public Map<SearchColour, Color> enumConversion = new HashMap<>();
 
     public ColourVal(Color avgCol) {
-        this.avgCol = avgCol;
+        //this.avgCol = avgCol;
+        this.avgCol = new Color(0,255,0);
         this.searchByColour = searchByRepresentation();
     }
 
