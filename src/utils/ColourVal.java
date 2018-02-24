@@ -23,17 +23,17 @@ public class ColourVal {
 
         //Initialisation ofa hashMap containing the RGB value for each SearchColour
         enumConversion = new HashMap<>();
-        enumConversion.put(SearchColour.RED,new Color(avgCol.getRed(),0,0));
+        enumConversion.put(SearchColour.RED,new Color(200,0,0));
         enumConversion.put(SearchColour.ORANGE, new Color(255, 190, avgCol.getBlue()));
         enumConversion.put(SearchColour.YELLOW, new Color(255, 255, avgCol.getBlue()));
-        enumConversion.put(SearchColour.GREEN,new Color(0,avgCol.getGreen(),0));
+        enumConversion.put(SearchColour.GREEN,new Color(0,200,0));
         enumConversion.put(SearchColour.CYAN, new Color(avgCol.getRed(), 255, 255));
-        enumConversion.put(SearchColour.BLUE,new Color(0,0,avgCol.getBlue()));
+        enumConversion.put(SearchColour.BLUE,new Color(0,0,200));
         enumConversion.put(SearchColour.PURPLE, new Color(100, avgCol.getGreen(), 200));
         enumConversion.put(SearchColour.PINK, new Color(255, avgCol.getGreen(), 255));
         enumConversion.put(SearchColour.WHITE,new Color(255,255,255));
-        enumConversion.put(SearchColour.GREY, new Color(178, 178, 178));
-        enumConversion.put(SearchColour.BROWN, new Color(102, 51, 0));
+        enumConversion.put(SearchColour.GREY, new Color(80, 80, 80));
+        enumConversion.put(SearchColour.BROWN, new Color(204, 204, 0));
         enumConversion.put(SearchColour.BLACK,new Color(0,0,0));
         double currentMin = 1000;
         SearchColour toReturn = SearchColour.WHITE;
