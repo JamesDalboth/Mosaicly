@@ -24,18 +24,18 @@ public class ColourVal {
         //Initialisation ofa hashMap containing the RGB value for each SearchColour
         enumConversion = new HashMap<>();
         enumConversion.put(SearchColour.RED,new Color(255,0,0));
-        enumConversion.put(SearchColour.ORANGE, new Color(255, 153, 51));
-        enumConversion.put(SearchColour.YELLOW, new Color(255, 255, 100));
+        enumConversion.put(SearchColour.ORANGE, new Color(255, 128, 0));
+        enumConversion.put(SearchColour.YELLOW, new Color(255, 255, 0));
         enumConversion.put(SearchColour.GREEN,new Color(0,255,0));
         enumConversion.put(SearchColour.CYAN, new Color(51, 255, 255));
         enumConversion.put(SearchColour.BLUE,new Color(0,0,255));
-        enumConversion.put(SearchColour.PURPLE, new Color(153, 51, 255));
-        enumConversion.put(SearchColour.PINK, new Color(255, 51, 255));
+        enumConversion.put(SearchColour.PURPLE, new Color(100, 0, 200));
+        enumConversion.put(SearchColour.PINK, new Color(255, 100, 255));
         enumConversion.put(SearchColour.WHITE,new Color(255,255,255));
-        enumConversion.put(SearchColour.GREY, new Color(100, 100, 100));
+        enumConversion.put(SearchColour.GREY, new Color(178, 178, 178));
         enumConversion.put(SearchColour.BROWN, new Color(102, 51, 0));
         enumConversion.put(SearchColour.BLACK,new Color(0,0,0));
-        long currentMin = 1000;
+        double currentMin = 1000;
         SearchColour toReturn = SearchColour.WHITE;
         for(SearchColour absColour : SearchColour.values()){
             if(findAbs(absColour)<currentMin){
@@ -47,12 +47,12 @@ public class ColourVal {
     }
 
 
-    private long findAbs(SearchColour colour){
-        long willBeReturned = 0;
-        willBeReturned += Math.abs(enumConversion.get(colour).getRed() - avgCol.getRed());
-        willBeReturned += Math.abs(enumConversion.get(colour).getGreen() - avgCol.getGreen());
-        willBeReturned += Math.abs(enumConversion.get(colour).getBlue() - avgCol.getBlue());
-        willBeReturned = willBeReturned;
+    private double findAbs(SearchColour colour){
+        double willBeReturned = 0;
+        willBeReturned += Math.pow(enumConversion.get(colour).getRed() - avgCol.getRed(),2);
+        willBeReturned += Math.pow(enumConversion.get(colour).getGreen() - avgCol.getGreen(),2);
+        willBeReturned += Math.pow(enumConversion.get(colour).getBlue() - avgCol.getBlue(),2);
+        willBeReturned = Math.sqrt(willBeReturned);
 
         return willBeReturned;
 }
