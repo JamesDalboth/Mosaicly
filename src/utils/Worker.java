@@ -1,15 +1,25 @@
 package utils;
 
+import Stitcher.Stitcher;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.Optional;
+import picture.PicLoc;
+import picture.Picture;
+import picture.Utils;
+import search.BingImageSearch;
+import search.ImageSearch;
 
 public class Worker extends Thread {
 
   private final coarseBacklog backlog;
+  private final Stitcher stitcher;
   private boolean interrupted = false;
   private int toSleep = 1;
 
-  public Worker(coarseBacklog backlog) {
+  public Worker(coarseBacklog backlog, Stitcher stitcher) {
     this.backlog = backlog;
+    this.stitcher = stitcher;
   }
 
   @Override
@@ -34,9 +44,21 @@ public class Worker extends Thread {
   }
 
   public void process(Task nextTask) {
-    //Needs to initiate a google search for pictures using searchterm seedWord and by the colour stored in  col
-    //
-    }
+    String searchColour = nextTask.colour.getSearchByColour();
+    String seedWord = nextTask.seedWord;
+
+    ImageSearch imageSearch = new BingImageSearch("", searchColour,
+        seedWord);
+
+    String imageUrl = imageSearch.getImageUrl();
+    Picture picture = Utils.loadPicture(imageUrl);
+    Image scaledImage = picture.getImage().getScaledInstance(
+        nextTask.getSize().width(),
+        nextTask.getSize().height(), Image.SCALE_DEFAULT);
+
+    stitcher.add(new PicLoc(new Picture((BufferedImage) scaledImage),
+        nextTask.location));
+  }
 
   private void SLEEP(){
     try {

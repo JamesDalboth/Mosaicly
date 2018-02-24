@@ -21,7 +21,7 @@ public class Picture {
    * @param image
    *          the internal representation of the image.
    */
-  protected Picture(BufferedImage image) {
+  public Picture(BufferedImage image) {
     this.image = image;
   }
 
