@@ -1,7 +1,6 @@
-package colourClassification;
+package utils;
 
 import java.util.Optional;
-import socialnetwork.domain.Task.Command;
 
 public class Worker extends Thread {
 
@@ -36,14 +35,11 @@ public class Worker extends Thread {
 
   public void process(Task nextTask) {
     switch(nextTask.command){
-      case DELETE:
-       if (!nextTask.getBoard().deleteMessage(nextTask.message)) {
-         this.backlog.add(new Task(Command.DELETE,nextTask.getMessage(),nextTask.getBoard()));
-       };
-
+      case COLSEARCH:
+        //Harry's request of colour goes here.
         break;
-      case POST:
-        nextTask.getBoard().addMessage(nextTask.message);
+      case REQUEST:
+        //James' request code goes here
         break;
     }
   }

@@ -1,4 +1,4 @@
-package socialnetwork.domain;
+package utils;
 
 import java.util.Optional;
 import Sets.coarsegrained.CoarseSet;
