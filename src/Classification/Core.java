@@ -2,6 +2,7 @@ package Classification;
 
 import picture.Picture;
 import utils.Backlog;
+import utils.Worker;
 import utils.coarseBacklog;
 
 import java.lang.reflect.Array;
@@ -14,14 +15,17 @@ public class Core {
     private Picture initImage;
     private final int noScavengers;
     private List<Scavenger> scavengers;
-    private int tileSize = 10;
+    private List<Worker> workers;
+    private final int tileSize = 10;
+    private final int noWorkers;
     private String seedWord;
 
-    public Core(Picture initImage, int noScavengers, String seedWord) {
+    public Core(Picture initImage, int noScavengers, String seedWord, i) {
         this.seedWord = seedWord;
         this.initImage = initImage;
         this.noScavengers = noScavengers;
         scavengers = new ArrayList<>();
+        workers = new ArrayList<>();
         Backlog backlog = new coarseBacklog();
         for (int i = 0; i < noScavengers; i++) {
             Scavenger scavenger = new Scavenger(i,initImage,backlog,tileSize,noScavengers,seedWord);
@@ -36,6 +40,11 @@ public class Core {
                 e.printStackTrace();
             }
         }
+
+        for (int i = 0; i < noWorkers; i++) {
+
+        }
+
     }
 
 

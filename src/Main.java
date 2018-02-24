@@ -9,7 +9,7 @@ public class Main {
 
         Picture initPic = picture.Utils.loadPicture(inputFile);
 
-        Core core = new Core(initPic,1,seedword);
+        Core core = new Core(initPic,5,seedword);
     }
 }
 
