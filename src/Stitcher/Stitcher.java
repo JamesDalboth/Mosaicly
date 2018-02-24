@@ -47,7 +47,7 @@ public class Stitcher {
       }
     }
 
-    stitcher.run("test_images", "output");
+    stitcher.run("output");
   }
 
   public void add(PicLoc picloc) {
@@ -72,7 +72,7 @@ public class Stitcher {
 //    return images;
 //  }
 
-  public void run(String src, String dest) {
+  public void run(String dest) {
 
 //    BufferedImage[] grid = readImages(src);
     BufferedImage target = new BufferedImage(ActualSize.width(),
