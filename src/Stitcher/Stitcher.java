@@ -72,7 +72,7 @@ public class Stitcher {
 //    return images;
 //  }
 
-  private void run(String src, String dest) {
+  public void run(String src, String dest) {
 
 //    BufferedImage[] grid = readImages(src);
     BufferedImage target = new BufferedImage(ActualSize.width(),
