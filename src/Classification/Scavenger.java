@@ -24,10 +24,12 @@ public class Scavenger extends Thread{
     @Override
     public void run() {
         int count = id;
-        while (count < (picture.getWidth() * picture.getHeight()) / (tileSize * tileSize)) {
+        int trueWidth = (int) Math.floor(picture.getWidth() / tileSize)*tileSize;
+        int trueHeight = (int) Math.floor(picture.getHeight() / tileSize)*tileSize;
+        while (count < (trueWidth * trueHeight)/(tileSize*tileSize)) {
             Picture picture = Utils.createPicture(tileSize, tileSize);
-            int xOffset = count*tileSize / picture.getWidth();
-            int yOffset = count*tileSize % picture.getWidth();
+            int yOffset = ((count*tileSize) / trueHeight)*tileSize;
+            int xOffset = (count*tileSize) % trueWidth;
             Location location = new Location();
             location.setX(xOffset);
             location.setY(yOffset);
@@ -52,8 +54,8 @@ public class Scavenger extends Thread{
         for (int i = 0; i < picture.getWidth(); i++) {
             for (int j = 0; j < picture.getHeight(); j++) {
                 rsum += picture.getPixel(i,j).getRed();
-                gsum += picture.getPixel(i,j).getBlue();
-                bsum += picture.getPixel(i,j).getGreen();
+                gsum += picture.getPixel(i,j).getGreen();
+                bsum += picture.getPixel(i,j).getBlue();
             }
         }
 
