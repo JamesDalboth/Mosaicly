@@ -14,12 +14,14 @@ public class Worker extends Thread {
 
   private final coarseBacklog backlog;
   private final Stitcher stitcher;
+  private final String subKey;
   private boolean interrupted = false;
   private int toSleep = 1;
 
-  public Worker(coarseBacklog backlog, Stitcher stitcher) {
+  public Worker(coarseBacklog backlog, Stitcher stitcher, String subKey) {
     this.backlog = backlog;
     this.stitcher = stitcher;
+    this.subKey = subKey;
   }
 
   @Override
@@ -47,7 +49,7 @@ public class Worker extends Thread {
     String searchColour = nextTask.colour.getSearchByColour();
     String seedWord = nextTask.seedWord;
 
-    ImageSearch imageSearch = new BingImageSearch("", searchColour,
+    ImageSearch imageSearch = new BingImageSearch(subKey, searchColour,
         seedWord);
 
     String imageUrl = imageSearch.getImageUrl();
