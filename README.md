@@ -4,4 +4,4 @@ Project for anvil hack 4
 
 Idea by Rohit Prasid
 
-Created by James Dalboth, Matthew Ho, Rohit Prasid and Harry Black
+Created by James Dalboth, Matthew Ho, Rohit Prasad and Harry Black
