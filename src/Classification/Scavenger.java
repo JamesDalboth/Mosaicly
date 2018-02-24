@@ -39,7 +39,7 @@ public class Scavenger extends Thread{
             }
             Color color = averageColor(picture);
             ColourVal colourVal = new ColourVal(color);
-            System.out.println(location.toString() + " "+ colourVal.getSearchByColour());
+            //System.out.println(location.toString() + " "+ colourVal.getSearchByColour());
             backlog.add(new Task(location,new Size(tileSize,tileSize),seedWord,colourVal));
             count += scavengerNo;
         }

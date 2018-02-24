@@ -16,7 +16,7 @@ public class Core {
     private final int noScavengers;
     private List<Scavenger> scavengers;
     private List<Worker> workers;
-    private final int tileSize = 10;
+    private final int tileSize = 25;
     private final int noWorkers;
     private String seedWord;
 
@@ -47,7 +47,7 @@ public class Core {
             workers.add(worker);
             worker.start();
         }
-
+        System.out.println(backlog.numberOfTasksInTheBacklog());
         while (backlog.numberOfTasksInTheBacklog() != 0) {
         }
 
