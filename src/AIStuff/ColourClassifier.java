@@ -39,6 +39,24 @@ public class ColourClassifier {
   private Classifier classifier;
   private Instances testSet;
 
+  private SearchColour[] s = {
+      SearchColour.YELLOW,
+      SearchColour.GREEN,
+      SearchColour.YELLOW,
+      SearchColour.ORANGE,
+      SearchColour.GREEN,
+      SearchColour.BROWN,
+      SearchColour.RED,
+      SearchColour.TEAL,
+      SearchColour.TEAL,
+      SearchColour.BLUE,
+      SearchColour.BLACK,
+      SearchColour.BROWN,
+      SearchColour.PURPLE,
+      SearchColour.PINK,
+      SearchColour.PURPLE
+  };
+
   public ColourClassifier() {
     try {
       this.classifier = loadModel(new File("weka_models"), "/RandomForest");
@@ -160,31 +178,18 @@ public class ColourClassifier {
   }
 
   public SearchColour classify(Color color) {
-    SearchColour[] s = {
-        SearchColour.YELLOW,
-        SearchColour.GREEN,
-        SearchColour.YELLOW,
-        SearchColour.ORANGE,
-        SearchColour.GREEN,
-        SearchColour.BROWN,
-        SearchColour.RED,
-        SearchColour.TEAL,
-        SearchColour.TEAL,
-        SearchColour.BLUE,
-        SearchColour.BLACK,
-        SearchColour.BROWN,
-        SearchColour.PURPLE,
-        SearchColour.PINK,
-        SearchColour.PURPLE
-    };
+
 
     Instance instance = new DenseInstance(3);
     instance.setValue(0, color.getRed());
     instance.setValue(1, color.getBlue());
     instance.setValue(2, color.getGreen());
     testSet.add(instance);
+    instanceCount += 1;
+    if (instanceCount % 100 == 0) {
+      System.out.println(instanceCount);
+    }
     try {
-      instanceCount += 1;
       return s[(int) classifier
           .classifyInstance(testSet.instance(instanceCount))];
     } catch (Exception e) {
