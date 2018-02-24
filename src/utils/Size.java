@@ -6,7 +6,7 @@ public class Size {
   private final int width;
 
   public Size() {
-    this(0, 0);
+    this(1, 1);
   }
 
   public Size(int height, int width) {
