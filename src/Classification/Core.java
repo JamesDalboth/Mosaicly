@@ -8,13 +8,21 @@ import search.ImageSearch;
 import utils.*;
 import Stitcher.Stitcher;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageOutputStream;
+import javax.imageio.stream.ImageOutputStream;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 
 public class Core {
 
-  private Picture initImage;
+  private Picture[] images;
   private final int noScavengers;
   private List<Scavenger> scavengers;
   private List<Worker> workers;
@@ -23,54 +31,87 @@ public class Core {
   private String seedWord;
   private final int scale = 2;
   private static Map<ColourVal.SearchColour, Picture> imageMap;
+  private static List<BufferedImage> outputs;
 
-  public Core(Picture initImage, int noScavengers, String seedWord,
-      int noWorkers) {
+  public Core(Picture[] images, int noScavengers, String seedWord,
+              int noWorkers) {
     imageMap = new HashMap<>();
     this.seedWord = seedWord;
-    this.initImage = initImage;
+    this.images = images;
     this.noScavengers = noScavengers;
     scavengers = new ArrayList<>();
     workers = new ArrayList<>();
     Backlog backlog = new OptimisticBacklog();
     this.noWorkers = noWorkers;
+    outputs = new ArrayList<>();
 
     scan();
     System.out.println("Scan completed");
-
-    Stitcher stitcher = new Stitcher(
-        new Size(initImage.getHeight(), initImage.getWidth()), tileSize, scale);
-    for (int i = 0; i < noScavengers; i++) {
-      Scavenger scavenger = new Scavenger(i, initImage, backlog, tileSize,
-          noScavengers);
-      scavengers.add(scavenger);
-      scavenger.start();
-    }
-
-    for (Scavenger scavenger : scavengers) {
-      try {
-        scavenger.join();
-      } catch (InterruptedException e) {
-        e.printStackTrace();
+    for (Picture pic : images) {
+      Stitcher stitcher = new Stitcher(
+              new Size(pic.getHeight(), pic.getWidth()), tileSize, scale);
+      for (int i = 0; i < noScavengers; i++) {
+        Scavenger scavenger = new Scavenger(i, pic, backlog, tileSize,
+                noScavengers);
+        scavengers.add(scavenger);
+        scavenger.start();
       }
+
+      for (Scavenger scavenger : scavengers) {
+        try {
+          scavenger.join();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+
+      for (int i = 0; i < noWorkers; i++) {
+        Worker worker = new Worker(backlog, stitcher);
+        workers.add(worker);
+        worker.start();
+      }
+
+      while (backlog.numberOfTasksInTheBacklog() != 0) {
+      }
+
+      for (Worker worker : workers) {
+        worker.interrupt();
+      }
+      outputs.add(stitcher.run());
     }
+    try {
+      if (outputs.size() > 1) {
+        // grab the output image type from the first image in the sequence
+        BufferedImage firstImage = outputs.get(0);
 
-    for (int i = 0; i < noWorkers; i++) {
-      Worker worker = new Worker(backlog, stitcher);
-      workers.add(worker);
-      worker.start();
+        // create a new BufferedOutputStream with the last argument
+        ImageOutputStream output =
+                new FileImageOutputStream(new File("output/target.gif"));
+
+        // create a gif sequence with the type of the first image, 1 second
+        // between frames, which loops continuously
+        GifSequenceWriter writer =
+                new GifSequenceWriter(output, firstImage.getType(), 1, true);
+
+        // write out the first image to our sequence...
+        writer.writeToSequence(firstImage);
+        for (int i = 1; i < outputs.size(); i++) {
+          BufferedImage nextImage = outputs.get(i);
+          writer.writeToSequence(nextImage);
+        }
+
+        writer.close();
+        output.close();
+      } else {
+        Path destPath = Paths.get("output", "target.jpg");
+        File output = new File(destPath.toString());
+        ImageIO.write(outputs.get(0), "jpg", output);
+      }
+
+
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-
-    while (backlog.numberOfTasksInTheBacklog() != 0) {
-    }
-
-    for (Worker worker : workers) {
-      worker.interrupt();
-    }
-
-    stitcher.run("output");
-
-
   }
 
   public void scan() {
