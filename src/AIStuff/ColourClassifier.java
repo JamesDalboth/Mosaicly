@@ -18,6 +18,22 @@ import weka.core.Instances;
 
 public class ColourClassifier {
 
+  private String[] colours = {"YELLOW",
+      "GREEN",
+      "MUSTARD",
+      "GOLD",
+      "ORANGE",
+      "OLIVE",
+      "BROWN",
+      "RED",
+      "TEAL",
+      "CYAN",
+      "BLUE",
+      "BLACK",
+      "MAROON",
+      "MAGENTA",
+      "PINK",
+      "PURPLE"};
   private Classifier classifier;
 
   public ColourClassifier() {
@@ -32,7 +48,7 @@ public class ColourClassifier {
 
     ColourClassifier c = new ColourClassifier();
     System.out.println("Loaded model.");
-    System.out.println(c.classify(new Color(0, 0, 0)));
+    System.out.println(c.classify(new Color(171, 151, 0)));
   }
 
   public static Classifier loadModel(File path, String name) throws Exception {
@@ -114,22 +130,6 @@ public class ColourClassifier {
 
     // Declare a nominal attribute along with its values
     ArrayList<String> colourVal = new ArrayList<>();
-    String[] colours = {"YELLOW",
-        "GREEN",
-        "MUSTARD",
-        "GOLD",
-        "ORANGE",
-        "OLIVE",
-        "BROWN",
-        "RED",
-        "TEAL",
-        "CYAN",
-        "BLUE",
-        "BLACK",
-        "MAROON",
-        "MAGENTA",
-        "PINK",
-        "PURPLE"};
 
     colourVal.addAll(Arrays.asList(colours));
 
@@ -150,7 +150,7 @@ public class ColourClassifier {
     return isTrainingSet;
   }
 
-  public double classify(Color color) {
+  public String classify(Color color) {
     // Create an empty test set
     Instances testSet = getTestSet();
     // Set class index
@@ -161,10 +161,10 @@ public class ColourClassifier {
     instance.setValue(2, color.getGreen());
     testSet.add(instance);
     try {
-      return classifier.classifyInstance(testSet.instance(0));
+      return colours[(int) classifier.classifyInstance(testSet.instance(0))];
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return 0;
+    return null;
   }
 }
