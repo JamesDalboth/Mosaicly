@@ -11,14 +11,12 @@ public class Scavenger extends Thread{
     private Backlog backlog;
     private int tileSize;
     private int scavengerNo;
-    private String seedWord;
-    public Scavenger(int id, Picture picture, Backlog backlog, int tileSize, int scavengerNo, String seedWord) {
+    public Scavenger(int id, Picture picture, Backlog backlog, int tileSize, int scavengerNo) {
         this.backlog = backlog;
         this.picture = picture;
         this.id = id;
         this.tileSize = tileSize;
         this.scavengerNo = scavengerNo;
-        this.seedWord = seedWord;
     }
 
     @Override
@@ -40,7 +38,7 @@ public class Scavenger extends Thread{
             Color color = averageColor(picture);
             ColourVal colourVal = new ColourVal(color);
             //System.out.println(location.toString() + " "+ colourVal.getSearchByColour());
-            backlog.add(new Task(location,new Size(tileSize,tileSize),seedWord,colourVal));
+            backlog.add(new Task(location,new Size(tileSize,tileSize),colourVal));
             count += scavengerNo;
         }
     }
