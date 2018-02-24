@@ -21,19 +21,18 @@ public class Stitcher {
   private final int chunkLength;
   //  private Map pictures = new HashMap();
   private BufferedImage[][] grid; //Organised by where the pictures are supposed to go.
-  private Size ApparentSize; //Corresponds to the size of the end picture.
   private Size ActualSize; //Corresponds to the resolution of the end picture.
 
   public Stitcher(Size size, int chunkLength) {
-    this.ApparentSize = size;
+    this.grid = new BufferedImage[size.height()][size.width()];
     this.chunkLength = chunkLength;
-    this.ActualSize = new Size(chunkLength * ApparentSize.height(),
-        chunkLength * ApparentSize.width());
+    this.ActualSize = new Size(chunkLength * size.height(),
+        chunkLength * size.width());
   }
 
   public static void main(String[] args) {
-    int height = 10;
-    int width = 20;
+    int height = 30;
+    int width = 30;
     Picture jesus = Utils.loadPicture("test_images/image0.jpg");
     Picture coke = Utils.loadPicture("test_images/image1.jpg");
     Random random = new Random();
@@ -81,8 +80,7 @@ public class Stitcher {
     Graphics2D g = (Graphics2D) target.getGraphics();
     for (int i = 0; i < grid.length; i++) {
       for (int j = 0; j < grid[i].length; j++) {
-        System.out.println("Drawing image " + i);
-        g.drawImage(grid[i][j], chunkLength * i, chunkLength * j, null);
+        g.drawImage(grid[i][j], chunkLength * j, chunkLength * i, null);
       }
     }
 
