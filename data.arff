@@ -1,0 +1,27 @@
+ // Declare two numeric attributes
+ Attribute Attribute1 = new Attribute(“R”);
+ Attribute Attribute2 = new Attribute(“G”);
+ Attribute Attribute3 = new Attribute(“B”);
+
+// Declare the class attribute along with its values
+ FastVector fvClassVal = new FastVector(12);
+ fvClassVal.addElement(“RED”);
+ fvClassVal.addElement(“BROWN”);
+ fvClassVal.addElement(“ORANGE”);
+ fvClassVal.addElement(“YELLOW”);
+ fvClassVal.addElement(“BROWN”);
+ fvClassVal.addElement(“BROWN”);
+ fvClassVal.addElement(“BROWN”);
+ fvClassVal.addElement(“BROWN”);
+ fvClassVal.addElement(“BROWN”);
+ fvClassVal.addElement(“BROWN”);
+ fvClassVal.addElement(“BROWN”);
+ fvClassVal.addElement(“BROWN”);
+ Attribute ClassAttribute = new Attribute(“theClass”, fvClassVal);
+
+ // Declare the feature vector
+ FastVector fvWekaAttributes = new FastVector(4);
+ fvWekaAttributes.addElement(Attribute1);
+ fvWekaAttributes.addElement(Attribute2);
+ fvWekaAttributes.addElement(Attribute3);
+ fvWekaAttributes.addElement(ClassAttribute);
