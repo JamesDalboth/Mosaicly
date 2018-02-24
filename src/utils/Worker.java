@@ -1,24 +1,20 @@
 package utils;
 
 import Classification.Core;
+import Sets.optimistic.OptimisticBacklog;
 import Stitcher.Stitcher;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.Optional;
 import picture.PicLoc;
 import picture.Picture;
-import picture.Utils;
-import search.BingImageSearch;
-import search.ImageSearch;
 
 public class Worker extends Thread {
 
-  private final coarseBacklog backlog;
+  private final Backlog backlog;
   private final Stitcher stitcher;
   private boolean interrupted = false;
   private int toSleep = 1;
 
-  public Worker(coarseBacklog backlog, Stitcher stitcher) {
+  public Worker(Backlog backlog, Stitcher stitcher) {
     this.backlog = backlog;
     this.stitcher = stitcher;
   }

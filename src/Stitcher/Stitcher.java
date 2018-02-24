@@ -22,31 +22,13 @@ public class Stitcher {
   //  private Map pictures = new HashMap();
   private BufferedImage[][] grid; //Organised by where the pictures are supposed to go.
   private Size ActualSize; //Corresponds to the resolution of the end picture.
+  private final int scale;
 
-  public Stitcher(Size size, int chunkLength) {
+  public Stitcher(Size size, int chunkLength, int scale) {
     this.grid = new BufferedImage[size.height()/chunkLength][size.width()/chunkLength];
     this.chunkLength = chunkLength;
     this.ActualSize = size;
-  }
-
-  public static void main(String[] args) {
-    int height = 30;
-    int width = 30;
-    Picture jesus = Utils.loadPicture("test_images/image0.jpg");
-    Picture coke = Utils.loadPicture("test_images/image1.jpg");
-    Random random = new Random();
-    Stitcher stitcher = new Stitcher(new Size(height, width), 512);
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        if (random.nextBoolean()) {
-          stitcher.add(new PicLoc(jesus, new Location(i, j)));
-        } else {
-          stitcher.add(new PicLoc(coke, new Location(i, j)));
-        }
-      }
-    }
-
-    stitcher.run("output");
+    this.scale = scale;
   }
 
   public void add(PicLoc picloc) {
@@ -74,12 +56,12 @@ public class Stitcher {
   public void run(String dest) {
 
 //    BufferedImage[] grid = readImages(src);
-    BufferedImage target = new BufferedImage(ActualSize.width(),
-        ActualSize.height(), BufferedImage.TYPE_INT_RGB);
+    BufferedImage target = new BufferedImage(ActualSize.width()*scale,
+        ActualSize.height()*scale, BufferedImage.TYPE_INT_RGB);
     Graphics2D g = (Graphics2D) target.getGraphics();
     for (int i = 0; i < grid.length; i++) {
       for (int j = 0; j < grid[i].length; j++) {
-        g.drawImage(grid[i][j], chunkLength * j, chunkLength * i, null);
+        g.drawImage(grid[i][j], chunkLength*scale * j, chunkLength*scale * i, null);
       }
     }
 

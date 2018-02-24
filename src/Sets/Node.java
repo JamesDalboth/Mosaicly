@@ -1,16 +1,16 @@
 package Sets;
 
-public interface baseNode<T> {
+public interface Node<T> {
 
   T item();
 
   int key();
 
-  baseNode<T> next();
+  Node<T> next();
 
   void setItem(T item);
 
   void setKey(int key);
 
-  void setNext(baseNode<T> next);
+  void setNext(Node<T> next);
 }
