@@ -35,6 +35,8 @@ public class ColourVal {
         enumConversion.put(SearchColour.GREY, new Color(avgCol.getGreen(), avgCol.getBlue(), avgCol.getRed()));
         enumConversion.put(SearchColour.BROWN, new Color(204, 204, 0));
         enumConversion.put(SearchColour.BLACK,new Color(0,0,0));
+
+
         double currentMin = 1000;
         SearchColour toReturn = SearchColour.WHITE;
         for(SearchColour absColour : SearchColour.values()){
