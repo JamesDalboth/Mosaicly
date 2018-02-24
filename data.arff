@@ -9,15 +9,15 @@
  fvClassVal.addElement(“BROWN”);
  fvClassVal.addElement(“ORANGE”);
  fvClassVal.addElement(“YELLOW”);
- fvClassVal.addElement(“BROWN”);
- fvClassVal.addElement(“BROWN”);
- fvClassVal.addElement(“BROWN”);
- fvClassVal.addElement(“BROWN”);
- fvClassVal.addElement(“BROWN”);
- fvClassVal.addElement(“BROWN”);
- fvClassVal.addElement(“BROWN”);
- fvClassVal.addElement(“BROWN”);
- Attribute ClassAttribute = new Attribute(“theClass”, fvClassVal);
+ fvClassVal.addElement(“GREEN”);
+ fvClassVal.addElement(“CYAN”);
+ fvClassVal.addElement(“BLUE”);
+ fvClassVal.addElement(“PURPLE”);
+ fvClassVal.addElement(“PINK”);
+ fvClassVal.addElement(“WHITE”);
+ fvClassVal.addElement(“GREY”);
+ fvClassVal.addElement(“BLACK”);
+ Attribute ClassAttribute = new Attribute(“NAME”, fvClassVal);
 
  // Declare the feature vector
  FastVector fvWekaAttributes = new FastVector(4);
