@@ -13,11 +13,12 @@ public class Task {
   final String seedWord;
   final int id;
 
-  public Task(Location location, Size size, String seedWord) {
+  public Task(Location location, Size size, String seedWord, ColourVal colour) {
 
     this.location = location;
     this.size = size;
     this.seedWord = seedWord;
+    this.colour = colour;
     this.id = nextTaskId.getAndIncrement();
   }
 
