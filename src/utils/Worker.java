@@ -9,7 +9,6 @@ import picture.Picture;
 import picture.Utils;
 import search.BingImageSearch;
 import search.ImageSearch;
-import utils.ColourVal.SearchColour;
 
 public class Worker extends Thread {
 
