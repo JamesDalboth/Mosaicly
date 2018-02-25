@@ -16,6 +16,8 @@ import picture.Color;
 import utils.ColourVal.SearchColour;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
+import weka.classifiers.meta.MultiClassClassifier;
+import weka.classifiers.rules.JRip;
 import weka.classifiers.trees.RandomForest;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
@@ -79,12 +81,12 @@ public class ColourClassifier {
 
   public static void main(String[] args) {
 
-   /* ColourClassifier c = new ColourClassifier();
+    ColourClassifier c = new ColourClassifier();
     try {
       c.trainModel();
     } catch (Exception e) {
       e.printStackTrace();
-    }*/
+    }
 //    ColourClassifier c = new ColourClassifier();
 //    System.out.println("Loaded model.");
 //    System.out.println(c.classify(new Color(171, 151, 0)));
@@ -144,9 +146,6 @@ public class ColourClassifier {
     List<String> readAllLines = Files.readAllLines(Paths.get("data.txt"));
     for (int i = 0; i < readAllLines.size(); i++) {
       String line = readAllLines.get(i);
-      if (i % 10000 == 0) {
-        System.out.println(i);
-      }
       String[] splitted = line.split(" ");
       int red = Integer
           .parseInt(splitted[0].substring(1, splitted[0].length() - 1));
@@ -168,7 +167,7 @@ public class ColourClassifier {
       isTrainingSet.add(next);
     }
 
-    Classifier cModel = new RandomForest();
+    Classifier cModel = new MultiClassClassifier();
     cModel.buildClassifier(isTrainingSet);
     System.out.println("Built the classifier!");
     saveModel(cModel, "RandomForest");
