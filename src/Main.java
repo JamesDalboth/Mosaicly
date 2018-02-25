@@ -19,11 +19,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main extends JFrame{
-
+    static boolean gif = false;
     Picture[] pics;
   public static void main(String[] args) throws IOException {
       new Main(args);
-
 
 
 
@@ -35,7 +34,6 @@ public class Main extends JFrame{
       //String inputFile = args[0];
       FileDialog fd = new FileDialog(this, "Choose a file", FileDialog.LOAD);
       fd.setDirectory("C:\\");
-      fd.setFile("*.gif");
       fd.setVisible(true);
       String filename = fd.getFile();
       if (filename == null)
@@ -84,7 +82,13 @@ public class Main extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
               core.run(pics);
-              ImageIcon pic2=new ImageIcon(readImgFromFile("C:\\Users\\JamesDalboth\\IdeaProjects\\Mosaicly\\output\\target.gif",resultLabel));
+              ImageIcon pic2;
+              if (gif) {
+                  pic2=new ImageIcon(readImgFromFile("C:\\Users\\JamesDalboth\\IdeaProjects\\Mosaicly\\output\\target.gif",resultLabel));
+              } else {
+                  pic2=new ImageIcon(readImgFromFile("C:\\Users\\JamesDalboth\\IdeaProjects\\Mosaicly\\output\\target.jpg",resultLabel));
+              }
+
               resultLabel.setIcon(pic2);
           }
 
@@ -144,7 +148,6 @@ public class Main extends JFrame{
   public String loadImage() {
       FileDialog fd = new FileDialog(this, "Choose a file", FileDialog.LOAD);
       fd.setDirectory("C:\\");
-      fd.setFile("*.gif");
       fd.setVisible(true);
       String filename = fd.getFile();
       if (filename == null)
@@ -165,8 +168,10 @@ public class Main extends JFrame{
         try {
             // Load anything but GIF the normal way
             if (!filename.substring(filename.length() - 4).equalsIgnoreCase(".gif")) {
-                return ImageIO.read(file);
+                gif = false;
+                return ImageIO.read(file).getScaledInstance(400,400,Image.SCALE_DEFAULT);
             }
+            gif = true;
 
             // Get GIF reader
             ImageReader reader = ImageIO.getImageReadersByFormatName("gif").next();
