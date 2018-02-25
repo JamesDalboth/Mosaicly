@@ -21,7 +21,7 @@ import java.io.IOException;
 public class Main extends JFrame{
     static boolean gif = false;
     Picture[] pics;
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, InterruptedException {
       new Main(args);
 
 
@@ -29,7 +29,7 @@ public class Main extends JFrame{
     System.out.println("Done");
   }
 
-  public Main(String[] args) throws IOException {
+  public Main(String[] args) throws IOException, InterruptedException {
       Core core = new Core(5,10);
       //String inputFile = args[0];
       FileDialog fd = new FileDialog(this, "Choose a file", FileDialog.LOAD);
@@ -43,6 +43,9 @@ public class Main extends JFrame{
       String inputFile = fd.getDirectory() + "\\" + filename;
 
       core.scan("Colour");
+      while (Core.imageMap.size() != 12) {
+          System.out.println(Core.imageMap.size());
+      }
       pics = decomposeGif(inputFile);
 
       this.setSize(800,800);
@@ -101,6 +104,9 @@ public class Main extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
               core.scan(seedInput.getText());
+              while (Core.imageMap.size() != 12) {
+                  System.out.println(Core.imageMap.size());
+              }
               seedLabel.setText("seed value - " + seedInput.getText());
           }
       });

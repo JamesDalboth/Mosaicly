@@ -28,10 +28,10 @@ public class Core {
   private final int noScavengers;
   private List<Scavenger> scavengers;
   private List<Worker> workers;
-  private final int tileSize = 10;
+  private final int tileSize = 5;
   private final int noWorkers;
-  private final int scale = 2;
-  private static Map<ColourVal.SearchColour, Picture> imageMap;
+  private final int scale = 3;
+  public static Map<ColourVal.SearchColour, Picture> imageMap;
   private static List<BufferedImage> outputs;
 
   public Core(int noWorkers, int noScavengers) {
