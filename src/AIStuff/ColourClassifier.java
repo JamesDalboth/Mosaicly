@@ -224,11 +224,14 @@ public class ColourClassifier {
     instanceCount += 1;
     System.out.println(instanceCount);
     try {
-      return s[(int) classifier
-          .classifyInstance(testSet.instance(instanceCount))];
+      double index = classifier
+          .classifyInstance(testSet.instance(instanceCount));
+      System.out.println("index = " + index + ", casting: " + (int) index);
+      return s[(int) index];
     } catch (Exception e) {
       e.printStackTrace();
     }
+
     return null;
   }
 }
