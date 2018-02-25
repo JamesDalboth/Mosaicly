@@ -26,7 +26,7 @@ public class Core {
   private final int noScavengers;
   private List<Scavenger> scavengers;
   private List<Worker> workers;
-  private final int tileSize = 4;
+  private final int tileSize = 10;
   private final int noWorkers;
   private final int scale = 2;
   private static Map<ColourVal.SearchColour, Picture> imageMap;
@@ -76,7 +76,7 @@ public class Core {
         worker.interrupt();
       }
       outputs.add(stitcher.run());
-      System.out.println("Pictures Processed - " + outputs.size());
+      System.out.println("Pictures Processed - " + (outputs.size()*100 / images.length));
     }
     try {
       if (outputs.size() > 1) {

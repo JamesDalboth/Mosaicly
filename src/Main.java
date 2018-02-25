@@ -61,7 +61,7 @@ public class Main extends JFrame{
       panel.add(runButton);
       JLabel imageLabel = new JLabel();
       ImageIcon pic=new ImageIcon(readImgFromFile(inputFile,imageLabel));
-      imageLabel = new JLabel(pic);
+      imageLabel.setIcon(pic);
       imageLabel.setBounds(0,0,400,400);
 
       JLabel resultLabel = new JLabel();
@@ -100,6 +100,23 @@ public class Main extends JFrame{
               seedLabel.setText("seed value - " + seedInput.getText());
           }
       });
+
+      JButton newImage = new JButton();
+      newImage.setBounds(350,400,200,50);
+      newImage.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            String inputFile = loadImage();
+              ImageIcon pic3=new ImageIcon(readImgFromFile(inputFile,imageLabel));
+              imageLabel.setIcon(pic3);
+              try {
+                  pics = decomposeGif(inputFile);
+              } catch (IOException e1) {
+                  e1.printStackTrace();
+              }
+          }
+      });
+      panel.add(newImage);
       this.add(panel);
       this.setVisible(true);
       this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -122,6 +139,20 @@ public class Main extends JFrame{
           }
       }
       return result;
+  }
+
+  public String loadImage() {
+      FileDialog fd = new FileDialog(this, "Choose a file", FileDialog.LOAD);
+      fd.setDirectory("C:\\");
+      fd.setFile("*.gif");
+      fd.setVisible(true);
+      String filename = fd.getFile();
+      if (filename == null)
+          System.out.println("You cancelled the choice");
+      else
+          System.out.println("You chose " + filename);
+      String inputFile = fd.getDirectory() + "\\" + filename;
+      return inputFile;
   }
 
     public static Image readImgFromFile(String filename, Component parent) {

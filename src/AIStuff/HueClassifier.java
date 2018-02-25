@@ -26,7 +26,7 @@ public class HueClassifier {
     double minDouble = min(min(r, g), b);
     double hue;
 
-    if (maxInt == minInt) {
+    if (maxInt - minInt < 20) {
       if (maxInt < 127) {
         if (maxInt == 0) {
           return SearchColour.BLACK;
