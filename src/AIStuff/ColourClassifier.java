@@ -18,6 +18,8 @@ import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.BayesNet;
 import weka.classifiers.meta.MultiClassClassifier;
+import weka.classifiers.meta.RandomSubSpace;
+import weka.classifiers.pmml.consumer.NeuralNetwork;
 import weka.classifiers.rules.JRip;
 import weka.classifiers.trees.RandomForest;
 import weka.core.Attribute;
@@ -168,7 +170,7 @@ public class ColourClassifier {
       isTrainingSet.add(next);
     }
 
-    Classifier cModel = new BayesNet();
+    Classifier cModel = new RandomSubSpace();
     cModel.buildClassifier(isTrainingSet);
     System.out.println("Built the classifier!");
     saveModel(cModel, "RandomForest");
