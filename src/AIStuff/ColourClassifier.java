@@ -94,11 +94,8 @@ public class ColourClassifier {
 
     Classifier classifier;
 
-    FileInputStream fis = new FileInputStream(path + name + ".model");
-    ObjectInputStream ois = new ObjectInputStream(fis);
-
-    classifier = (Classifier) ois.readObject();
-    ois.close();
+    classifier = (Classifier) weka.core.SerializationHelper
+        .read(path + "/" + name);
 
     return classifier;
   }
