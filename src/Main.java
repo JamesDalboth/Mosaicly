@@ -84,9 +84,9 @@ public class Main extends JFrame{
               core.run(pics);
               ImageIcon pic2;
               if (gif) {
-                  pic2=new ImageIcon(readImgFromFile("C:\\Users\\JamesDalboth\\IdeaProjects\\Mosaicly\\output\\target.gif",resultLabel));
+                  pic2 = new ImageIcon(readImgFromFile("output\\target.gif", resultLabel));
               } else {
-                  pic2=new ImageIcon(readImgFromFile("C:\\Users\\JamesDalboth\\IdeaProjects\\Mosaicly\\output\\target.jpg",resultLabel));
+                  pic2 = new ImageIcon(readImgFromFile("output\\target.jpg", resultLabel));
               }
 
               resultLabel.setIcon(pic2);
