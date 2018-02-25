@@ -117,7 +117,7 @@ public class Core {
 
   public void scan(String seedWord) {
       imageMap = new HashMap<>();
-    ExecutorService exec = Executors.newFixedThreadPool(12);
+    ExecutorService exec = Executors.newFixedThreadPool(3);
     try {
       for (ColourVal.SearchColour searchColour : ColourVal.SearchColour.values()) {
         exec.submit(new Runnable() {
@@ -135,6 +135,12 @@ public class Core {
             Picture scaled = new Picture(Utils.toBufferedImage(scaledImage));
             imageMap.put(searchColour, scaled);
             System.out.println(searchColour.toString() + " Image found");
+            try {
+              // bing only allows 3 transactions per second
+              Thread.sleep(1000);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
           }
         });
       }
