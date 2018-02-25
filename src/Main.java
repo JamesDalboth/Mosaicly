@@ -45,7 +45,7 @@ public class Main extends JFrame{
       core.scan("Colour");
       pics = decomposeGif(inputFile);
 
-      this.setSize(800,1000);
+      this.setSize(800,800);
 
       JPanel panel = new JPanel();
       panel.setLayout(null);
@@ -53,7 +53,7 @@ public class Main extends JFrame{
 
       JButton runButton = new JButton();
       runButton.setSize(100,50);
-      runButton.setBounds(350,900,100,50);
+      runButton.setBounds(350,700,100,50);
       runButton.setText("Run!");
 
       panel.add(runButton);
@@ -70,11 +70,11 @@ public class Main extends JFrame{
       panel.add(imageLabel);
 
       JTextField seedInput = new JTextField();
-      seedInput.setBounds(350,750,100,50);
+      seedInput.setBounds(350,550,100,50);
       panel.add(seedInput);
 
       JButton scan = new JButton();
-      scan.setBounds(300,800,200,50);
+      scan.setBounds(300,600,200,50);
       scan.setText("Scan for images with seed");
 
       panel.add(scan);
@@ -95,7 +95,7 @@ public class Main extends JFrame{
       });
 
       JLabel seedLabel = new JLabel("seed value - colour");
-      seedLabel.setBounds(200,850,400,50);
+      seedLabel.setBounds(350,650,200,50);
       panel.add(seedLabel);
       scan.addActionListener(new ActionListener() {
           @Override
@@ -106,7 +106,7 @@ public class Main extends JFrame{
       });
 
       JButton newImage = new JButton();
-      newImage.setBounds(350,400,200,50);
+      newImage.setBounds(300,400,200,50);
       newImage.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
@@ -120,7 +120,9 @@ public class Main extends JFrame{
               }
           }
       });
+      newImage.setText("Choose Image");
       panel.add(newImage);
+      this.setBackground(Color.WHITE);
       this.add(panel);
       this.setVisible(true);
       this.setDefaultCloseOperation(EXIT_ON_CLOSE);
