@@ -16,6 +16,7 @@ import picture.Color;
 import utils.ColourVal.SearchColour;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
+import weka.classifiers.bayes.BayesNet;
 import weka.classifiers.meta.MultiClassClassifier;
 import weka.classifiers.rules.JRip;
 import weka.classifiers.trees.RandomForest;
@@ -167,7 +168,7 @@ public class ColourClassifier {
       isTrainingSet.add(next);
     }
 
-    Classifier cModel = new MultiClassClassifier();
+    Classifier cModel = new BayesNet();
     cModel.buildClassifier(isTrainingSet);
     System.out.println("Built the classifier!");
     saveModel(cModel, "RandomForest");
