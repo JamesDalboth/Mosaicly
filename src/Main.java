@@ -32,8 +32,18 @@ public class Main extends JFrame{
 
   public Main(String[] args) throws IOException {
       Core core = new Core(5,10);
+      //String inputFile = args[0];
+      FileDialog fd = new FileDialog(this, "Choose a file", FileDialog.LOAD);
+      fd.setDirectory("C:\\");
+      fd.setFile("*.gif");
+      fd.setVisible(true);
+      String filename = fd.getFile();
+      if (filename == null)
+          System.out.println("You cancelled the choice");
+      else
+          System.out.println("You chose " + filename);
+      String inputFile = fd.getDirectory() + "\\" + filename;
 
-      String inputFile = args[0];
       core.scan("Colour");
       pics = decomposeGif(inputFile);
 
@@ -68,24 +78,28 @@ public class Main extends JFrame{
       JButton scan = new JButton();
       scan.setBounds(300,800,200,50);
       scan.setText("Scan for images with seed");
-      scan.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-              core.scan(scan.getText());
-          }
-      });
+
       panel.add(scan);
       runButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
               core.run(pics);
-
               ImageIcon pic2=new ImageIcon(readImgFromFile("C:\\Users\\JamesDalboth\\IdeaProjects\\Mosaicly\\output\\target.gif",resultLabel));
               resultLabel.setIcon(pic2);
           }
 
       });
 
+      JLabel seedLabel = new JLabel("seed value - colour");
+      seedLabel.setBounds(200,850,400,50);
+      panel.add(seedLabel);
+      scan.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              core.scan(seedInput.getText());
+              seedLabel.setText("seed value - " + seedInput.getText());
+          }
+      });
       this.add(panel);
       this.setVisible(true);
       this.setDefaultCloseOperation(EXIT_ON_CLOSE);
