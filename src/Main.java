@@ -34,8 +34,7 @@ public class Main extends JFrame{
       Core core = new Core(5,10);
 
       String inputFile = args[0];
-      String seedword = args[1];
-      core.scan(seedword);
+      core.scan("Colour");
       pics = decomposeGif(inputFile);
 
       this.setSize(800,1000);
@@ -62,6 +61,20 @@ public class Main extends JFrame{
 
       panel.add(imageLabel);
 
+      JTextField seedInput = new JTextField();
+      seedInput.setBounds(350,750,100,50);
+      panel.add(seedInput);
+
+      JButton scan = new JButton();
+      scan.setBounds(300,800,200,50);
+      scan.setText("Scan for images with seed");
+      scan.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              core.scan(scan.getText());
+          }
+      });
+      panel.add(scan);
       runButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
