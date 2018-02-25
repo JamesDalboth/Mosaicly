@@ -214,19 +214,16 @@ public class ColourClassifier {
   }
 
   public SearchColour classify(Color color) {
-
-
     Instance instance = new DenseInstance(3);
     instance.setValue(0, color.getRed());
-    instance.setValue(1, color.getBlue());
-    instance.setValue(2, color.getGreen());
+    instance.setValue(1, color.getGreen());
+    instance.setValue(2, color.getBlue());
     testSet.add(instance);
     instanceCount += 1;
     System.out.println(instanceCount);
     try {
       double index = classifier
           .classifyInstance(testSet.instance(instanceCount));
-      System.out.println("index = " + index + ", casting: " + (int) index);
       return s[(int) index];
     } catch (Exception e) {
       e.printStackTrace();
