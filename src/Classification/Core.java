@@ -1,6 +1,8 @@
 package Classification;
 
 import Sets.optimistic.OptimisticBacklog;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import picture.Picture;
 import picture.Utils;
 import search.BingImageSearch;
@@ -115,20 +117,29 @@ public class Core {
 
   public void scan(String seedWord) {
       imageMap = new HashMap<>();
-    for (ColourVal.SearchColour searchColour : ColourVal.SearchColour
-        .values()) {
-      ImageSearch imageSearch = new BingImageSearch(
-          "7a4819d6134a4c3c860bf5bfd15ec1ef", searchColour.toString(),
-          seedWord);
+    ExecutorService exec = Executors.newFixedThreadPool(12);
+    try {
+      for (ColourVal.SearchColour searchColour : ColourVal.SearchColour.values()) {
+        exec.submit(new Runnable() {
+          @Override
+          public void run() {
+            ImageSearch imageSearch = new BingImageSearch(
+                "7a4819d6134a4c3c860bf5bfd15ec1ef", searchColour.toString(),
+                seedWord);
 
-      Picture picture = imageSearch.getImageUrl();
+            Picture picture = imageSearch.getImageUrl();
 
-      Image scaledImage = picture.getImage().getScaledInstance(
-          tileSize * scale,
-          tileSize * scale, Image.SCALE_DEFAULT);
-      Picture scaled = new Picture(Utils.toBufferedImage(scaledImage));
-      imageMap.put(searchColour, scaled);
-      System.out.println(searchColour.toString() + " Image found");
+            Image scaledImage = picture.getImage().getScaledInstance(
+                tileSize * scale,
+                tileSize * scale, Image.SCALE_DEFAULT);
+            Picture scaled = new Picture(Utils.toBufferedImage(scaledImage));
+            imageMap.put(searchColour, scaled);
+            System.out.println(searchColour.toString() + " Image found");
+          }
+        });
+      }
+    } finally {
+      exec.shutdown();
     }
   }
 
