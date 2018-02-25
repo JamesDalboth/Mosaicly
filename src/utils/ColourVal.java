@@ -1,5 +1,7 @@
 package utils;
 
+import AIStuff.ColourClassifier;
+import Classification.Core;
 import picture.Color;
 
 import java.util.HashMap;
@@ -14,11 +16,10 @@ public class ColourVal {
     public ColourVal(Color avgCol) {
         this.avgCol = avgCol;
         //this.avgCol = new Color(0,0,0);
-        this.searchByColour = searchByRepresentation();
+        this.searchByColour = Core.findSearchColour.classify(avgCol);
     }
 
-    private SearchColour searchByRepresentation() {
-        //Will take avgCol and determine which colour bucket it fits into for search purposes
+    private SearchColour searchByRepresentation() {        //Will take avgCol and determine which colour bucket it fits into for search purposes
 
 
         //Initialisation ofa hashMap containing the RGB value for each SearchColour
