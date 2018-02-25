@@ -26,26 +26,24 @@ public class Core {
   private final int noScavengers;
   private List<Scavenger> scavengers;
   private List<Worker> workers;
-  private final int tileSize = 5;
+  private final int tileSize = 4;
   private final int noWorkers;
-  private String seedWord;
   private final int scale = 2;
   private static Map<ColourVal.SearchColour, Picture> imageMap;
   private static List<BufferedImage> outputs;
 
-  public Core(Picture[] images, int noScavengers, String seedWord,
-              int noWorkers) {
-    imageMap = new HashMap<>();
-    this.seedWord = seedWord;
+  public Core(int noWorkers, int noScavengers) {
+      this.noWorkers = noWorkers;
+      this.noScavengers = noScavengers;
+  }
+
+  public void run(Picture[] images) {
     this.images = images;
-    this.noScavengers = noScavengers;
     scavengers = new ArrayList<>();
     workers = new ArrayList<>();
     Backlog backlog = new OptimisticBacklog();
-    this.noWorkers = noWorkers;
     outputs = new ArrayList<>();
 
-    scan();
     System.out.println("Scan completed");
     for (Picture pic : images) {
       Stitcher stitcher = new Stitcher(
@@ -78,6 +76,7 @@ public class Core {
         worker.interrupt();
       }
       outputs.add(stitcher.run());
+      System.out.println("Pictures Processed - " + outputs.size());
     }
     try {
       if (outputs.size() > 1) {
@@ -114,7 +113,8 @@ public class Core {
     }
   }
 
-  public void scan() {
+  public void scan(String seedWord) {
+      imageMap = new HashMap<>();
     for (ColourVal.SearchColour searchColour : ColourVal.SearchColour
         .values()) {
       ImageSearch imageSearch = new BingImageSearch(
@@ -128,6 +128,7 @@ public class Core {
           tileSize * scale, Image.SCALE_DEFAULT);
       Picture scaled = new Picture(Utils.toBufferedImage(scaledImage));
       imageMap.put(searchColour, scaled);
+      System.out.println(searchColour.toString() + " Image found");
     }
   }
 
