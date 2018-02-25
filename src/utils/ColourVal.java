@@ -1,6 +1,7 @@
 package utils;
 
 import AIStuff.ColourClassifier;
+import AIStuff.HueClassifier;
 import Classification.Core;
 import picture.Color;
 
@@ -16,7 +17,7 @@ public class ColourVal {
     public ColourVal(Color avgCol) {
         this.avgCol = avgCol;
         //this.avgCol = new Color(0,0,0);
-        this.searchByColour = Core.findSearchColour.classify(avgCol);
+        this.searchByColour = HueClassifier.classify(avgCol);
     }
 
     private SearchColour searchByRepresentation() {        //Will take avgCol and determine which colour bucket it fits into for search purposes

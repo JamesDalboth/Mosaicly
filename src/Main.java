@@ -27,15 +27,16 @@ public class Main {
       if (!location.endsWith(".gif")) {
           result = new Picture[1];
           result[0] = picture.Utils.loadPicture(location);
-      }
-      GifDecoder gd = new GifDecoder();
-      gd.read(location);
+      } else {
+          GifDecoder gd = new GifDecoder();
+          gd.read(location);
 
-      result = new Picture[gd.getFrameCount()];
-      for (int i = 0, count = gd.getFrameCount(); i < count; i++)
-      {
-          BufferedImage image = gd.getFrame(i);
-          result[i] = new Picture(image);
+          result = new Picture[gd.getFrameCount()];
+          for (int i = 0, count = gd.getFrameCount(); i < count; i++)
+          {
+              BufferedImage image = gd.getFrame(i);
+              result[i] = new Picture(image);
+          }
       }
       return result;
   }

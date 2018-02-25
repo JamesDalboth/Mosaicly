@@ -26,7 +26,7 @@ public class Core {
   private final int noScavengers;
   private List<Scavenger> scavengers;
   private List<Worker> workers;
-  private final int tileSize = 10;
+  private final int tileSize = 5;
   private final int noWorkers;
   private String seedWord;
   private final int scale = 2;
