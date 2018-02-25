@@ -124,7 +124,7 @@ public class Core {
           @Override
           public void run() {
             ImageSearch imageSearch = new BingImageSearch(
-                "7a4819d6134a4c3c860bf5bfd15ec1ef", searchColour.toString(),
+                "90767059c1304b17b4477f7428311666", searchColour.toString(),
                 seedWord);
 
             Picture picture = imageSearch.getImageUrl();
